@@ -1,27 +1,41 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <style>
-    body { width: 260px; margin: 0; padding: 14px; font: 14px system-ui, sans-serif; }
-    .row { display: flex; align-items: center; gap: 10px; }
-    #slider { flex: 1; }
-    #label { width: 48px; text-align: right; font-variant-numeric: tabular-nums; }
-    .buttons { display: flex; gap: 8px; margin-top: 12px; }
-    button { flex: 1; padding: 6px; cursor: pointer; }
-    #error { color: #b00020; margin-top: 8px; font-size: 12px; }
-  </style>
+  <meta name="color-scheme" content="light dark">
+  <title>Tab Volume</title>
+  <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-  <div class="row">
-    <input id="slider" type="range" min="0" max="400" step="5" value="100">
-    <span id="label">100%</span>
+  <header>
+    <p id="tab-title">This tab</p>
+  </header>
+
+  <section class="level">
+    <output id="readout" for="slider" aria-live="off"><span id="value">100</span><span class="unit">%</span></output>
+    <button id="mute" type="button" class="icon-btn" aria-pressed="false" aria-label="Mute this tab" title="Mute">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4z"/>
+        <g class="waves"><path d="M15.5 9a4.2 4.2 0 0 1 0 6"/><path d="M18 6.5a7.7 7.7 0 0 1 0 11"/></g>
+        <g class="cross"><path d="M16 9.5l5 5"/><path d="M21 9.5l-5 5"/></g>
+      </svg>
+    </button>
+  </section>
+
+  <div class="slider-wrap">
+    <input id="slider" type="range" min="0" max="400" step="5" value="100" aria-label="Tab volume">
+    <span class="tick" aria-hidden="true"></span>
   </div>
-  <div class="buttons">
-    <button id="mute">Mute</button>
-    <button id="reset">Reset</button>
+  <div class="scale" aria-hidden="true"><span>0</span><span class="hundred">100</span><span>400</span></div>
+
+  <div class="presets" role="group" aria-label="Volume presets">
+    <button type="button" data-v="50">50%</button>
+    <button type="button" data-v="100">100%</button>
+    <button type="button" data-v="200">200%</button>
+    <button type="button" data-v="400">400%</button>
   </div>
-  <div id="error"></div>
+
+  <p id="hint" role="status"></p>
   <script src="popup.js"></script>
 </body>
 </html>
